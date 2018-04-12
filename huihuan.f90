@@ -1,16 +1,15 @@
 program main
 include 'mpif.h'
-implicit none
 character* (MPI_MAX_PROCESSOR_NAME)processor_name
 integer myid, numprocs, namelen, rc, ierr
-call MPI_INIT(ierr)  
-call MPI_COMM_RANK(MPI_COMM_WORLD,myid,ierr)  
-call MPI_COMM_SIZE(MPI_COMM_WORLD,numprocs,ierr)
-call MPI_GET_PROCESSOR_NAME(processor_name,namelen,ierr)
+	call MPI_INIT(ierr)  
+	call MPI_COMM_RANK(MPI_COMM_WORLD,myid,ierr)  
+	call MPI_COMM_SIZE(MPI_COMM_WORLD,numprocs,ierr)
+	call MPI_GET_PROCESSOR_NAME(processor_name,namelen,ierr)
 write(*,10) myid,numprocs,processor_name
 10 FORMAT('Hello,World!Process',I2,' of ',I1,' on ',10A)
 call MPI_Barrier(MPI_COMM_WORLD,ierr)
-!----------------------姝ｆ枃閮ㄥ垎--------------------
+!--------------------------------------------------
 ! judge if number of processors is less than 2
 if(numprocs<2) then
     write(*,*)'The number of processor is less than 2.'
@@ -18,12 +17,13 @@ if(numprocs<2) then
 endif
 
 call hello()
+
 !--------------------------------------------------
 call MPI_FINALIZE()
 end
+
 ! send hello to everyone and receive hello from everyone.
 subroutine hello()
-include 'mpi.h'
 implicit none
 integer:: rank, nproc,ierr,node,count_send,tag,data1,data2
 integer::iSTATUS(MPI_STATUS_SIZE)
@@ -43,5 +43,4 @@ do node=0,nproc-1   ! send to each one (except itself)
         write(*,*) rank,' receive hellon form',node
     end if
 end do 
-return
 end subroutine hello
