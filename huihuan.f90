@@ -8,9 +8,9 @@ call MPI_INIT(ierr)
 call MPI_COMM_RANK(MPI_COMM_WORLD,myid,ierr)  
 call MPI_COMM_SIZE(MPI_COMM_WORLD,numprocs,ierr)
 call MPI_GET_PROCESSOR_NAME(processor_name,namelen,ierr)
-write(*,10) myid,numprocs,processor_name
-10 FORMAT('Hello,World!Process',I2,' of ',I1,' on ',10A)
-call MPI_Barrier(MPI_COMM_WORLD,ierr)
+!write(*,10) myid,numprocs,processor_name
+!10 FORMAT('Hello,World!Process',I2,' of ',I1,' on ',10A)
+!call MPI_Barrier(MPI_COMM_WORLD,ierr)
 !--------------------------------------------------
 ! judge if number of processors is less than 2
 if(numprocs<2) then
@@ -41,5 +41,5 @@ end do
 write(*,*) myid,'  data is ',mydata
 
 !--------------------------------------------------
-call MPI_FINALIZE()
+call MPI_FINALIZE(rc)
 end program
