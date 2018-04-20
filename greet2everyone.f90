@@ -12,5 +12,5 @@ write(*,10) myid,numprocs,processor_name
 
 
 !--------------------------------------------------
-call MPI_FINALIZE(rc)
+call MPI_FINALIZE()
 end
